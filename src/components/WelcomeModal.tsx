@@ -20,11 +20,12 @@ import {
     Box,
     Heading, 
     Input,
-    Button
+    Button,
+    Flex
 } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useCurrentUser } from '../contexts/CurrentUserContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 
@@ -33,36 +34,33 @@ const steps = [
     { title: 'Job Title', description: 'Enter your job title' },
 ]
 
-export function WelcomeModal() {
-
-    const[currentUser, setCurrentUser] = useCurrentUser();
-
+function WelcomeModalInner() {
+    const {currentUser, setCurrentUser, isEditing} = useCurrentUser();
     const { activeStep, setActiveStep } = useSteps({
         index: 1,
         count: steps.length,
     })
-
     const [name, setName] = useState(null as null | string); 
-
-    console.log(currentUser);
-
-    if (currentUser) {
+    if (!isEditing) {
         return null; 
-    }
-
-    
+    } 
 
     return <>
         <Modal
             isOpen
             onClose={() => {
-
+                // If there is a current user (and we are editing it)
+                // Then we can allow the modal to close with an escape button
+                // Otherwise ignore the escape button
+                if(currentUser){
+                    setCurrentUser(currentUser);
+                }
             }}
 
         >
-            <ModalHeader>Welcome</ModalHeader>
-            <ModalContent>
-                <Box>
+                    <ModalOverlay />
+            <ModalContent padding="2em">
+                <Box >
                     <Stepper index={activeStep}>
                         {steps.map((step, index) => (
                             <Step key={index}>
@@ -94,9 +92,11 @@ export function WelcomeModal() {
                             setName(name as string);
                             setActiveStep(2);
                         }}>
-                        <Heading>Enter your name</Heading>
-                        <Input name ="name" placeholder='Name' isRequired/>
+                        <Heading fontSize={"2xl"}  margin={"1em 0"}>Enter your name</Heading>
+                        <Input name ="name" placeholder='Name' isRequired defaultValue={currentUser?.name}/>
+                        <Flex justifyContent={"flex-end"}  margin="1em">
                         <Button variant="solid" colorScheme='blue' type="submit">Next</Button>
+                        </Flex>
                         </form>
                     </>}
                     {activeStep === 2 && <>
@@ -106,19 +106,39 @@ export function WelcomeModal() {
                             const title = new FormData(e.currentTarget).get("title");
                             if(!title){
                                 throw new Error("Title did not exist in form");
-                            }      
+                            }     
+                            if(!name) {
+                                throw new Error("Name did not exist in state");
+                            } 
                             setCurrentUser({
-                                name: name, 
-                                title
+                                name: name as string,
+                                title : title as string
                             }); 
                         }}>
-                            <Heading>Enter your job title</Heading>
-                            <Input name ="title" placeholder='Title' isRequired/>
+                            <Heading fontSize={"2xl"} margin={"1em 0"}>Enter your job title</Heading>
+                            <Input name ="title" placeholder='Title' isRequired defaultValue={currentUser?.title}/>
+                            <Flex justifyContent={"flex-end"} margin="1em">
+
                             <Button variant="solid" colorScheme='blue' type="submit">Submit</Button>
+                            </Flex>
                         </form>
                     </>}
                 </Box>
             </ModalContent>
         </Modal>
     </>
+}
+
+export function WelcomeModal() {
+   
+    /**
+     * In order to force a remount we use this wrapper/pattern 
+     * Otherwise the modal will get stuck on the old step
+     */
+    const {currentUser, setCurrentUser, isEditing} = useCurrentUser();
+    if(isEditing){
+        return <WelcomeModalInner/>
+
+    }
+    return null;
 }

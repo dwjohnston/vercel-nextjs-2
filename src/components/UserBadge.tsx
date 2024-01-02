@@ -1,14 +1,11 @@
 "use client"; 
-import { Box, Flex, Icon } from '@chakra-ui/react';
+import { Box, Flex, Icon, IconButton } from '@chakra-ui/react';
 import { useCurrentUser } from '../contexts/CurrentUserContext';
 import { FaRegUser } from "react-icons/fa6";
+import { FaPencil } from "react-icons/fa6";
 
 export function UserBadge() {
-    const [currentUser] = useCurrentUser(); 
-
-
-    console.log(currentUser);
-
+    const {currentUser, requestEdit} = useCurrentUser(); 
     if (!currentUser) {
         return null; 
     }
@@ -20,6 +17,10 @@ export function UserBadge() {
         <Box>
         <strong>{currentUser.name}</strong>
         <p>{currentUser.title}</p>
+        </Box>
+
+        <Box>
+            <IconButton variant="ghost" icon={<FaPencil/>} aria-label='Edit' onClick={requestEdit}/>
         </Box>
     </Flex>
 
