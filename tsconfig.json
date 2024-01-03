@@ -20,6 +20,15 @@
     ],
     "paths": {
       "@/*": ["./*"]
+    }, 
+    "types": ["cypress", "@testing-library/cypress"]
+
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "types": ["cypress", "@testing-library/cypress"],
+      "module": "ESNext",
+      "moduleResolution": "Node"
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

@@ -80,12 +80,12 @@ export function ListOfCharactersInner() {
 
     return <>
 
-        {selectedCharacterId && <Modal isOpen={true} onClose={() => {
+        {selectedCharacterId && <Modal  isOpen={true} onClose={() => {
           router.push(pathname)
 
         }}>
             <ModalOverlay />
-            <ModalContent minHeight={300}>
+            <ModalContent minHeight={300} data-testid="character-modal">
                 <ModalCloseButton />
                 <ModalBody>
                     <SingleCharacter characterId={selectedCharacterId}/>
@@ -96,7 +96,7 @@ export function ListOfCharactersInner() {
 
         <Flex flexFlow={"row wrap"} gap="1em"  padding="2em" justifyContent={"center"}>
             {data?.characters.results.map((v: CharacterPreview) => {
-                return <Link key={v.id} href={pathname + '?' + createQueryString('selectedCharacter', v.id)}
+                return <Link key={v.id} href={pathname + '?' + createQueryString('selectedCharacter', v.id)} aria-label={`${v.name}`}
                 ><Box >
                         <Text fontSize="m">{v.name}</Text>
                         <Image src={v.image} alt={v.name} width={300} height={300} />

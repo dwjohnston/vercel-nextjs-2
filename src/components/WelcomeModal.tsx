@@ -93,7 +93,7 @@ function WelcomeModalInner() {
                             setActiveStep(2);
                         }}>
                         <Heading fontSize={"2xl"}  margin={"1em 0"}>Enter your name</Heading>
-                        <Input name ="name" placeholder='Name' isRequired defaultValue={currentUser?.name}/>
+                        <Input name ="name" placeholder='Name' isRequired defaultValue={currentUser?.name} aria-label="Name"/>
                         <Flex justifyContent={"flex-end"}  margin="1em">
                         <Button variant="solid" colorScheme='blue' type="submit">Next</Button>
                         </Flex>
@@ -116,7 +116,7 @@ function WelcomeModalInner() {
                             }); 
                         }}>
                             <Heading fontSize={"2xl"} margin={"1em 0"}>Enter your job title</Heading>
-                            <Input name ="title" placeholder='Title' isRequired defaultValue={currentUser?.title}/>
+                            <Input name ="title" placeholder='Title' isRequired defaultValue={currentUser?.title} aria-label="Title"/>
                             <Flex justifyContent={"flex-end"} margin="1em">
 
                             <Button variant="solid" colorScheme='blue' type="submit">Submit</Button>

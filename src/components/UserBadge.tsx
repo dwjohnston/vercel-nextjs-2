@@ -10,7 +10,7 @@ export function UserBadge() {
         return null; 
     }
 
-    return <Flex justifyContent="flex-end" alignItems={"center"} gap="0.5em" margin = "0.5em">
+    return <Flex justifyContent="flex-end" alignItems={"center"} gap="0.5em" margin = "0.5em" data-testid="user-badge">
         <Box>
         <Icon as ={FaRegUser}/>
         </Box>
