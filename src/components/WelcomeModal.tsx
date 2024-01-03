@@ -61,6 +61,8 @@ function WelcomeModalInner() {
         >
                     <ModalOverlay />
             <ModalContent padding="2em">
+                <Heading marginBottom={"1em"}>{currentUser ? "Edit User" : "Create User"}</Heading>
+
                 <Box >
                     <Stepper index={activeStep}>
                         {steps.map((step, index) => (

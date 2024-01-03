@@ -2,7 +2,7 @@
 import React from "react";
 import {  useQuery } from "@apollo/client";
 import {gql} from "../../__generated__/gql";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Card, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import { useCallback, useState } from "react";
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
@@ -20,6 +20,7 @@ import { SingleCharacter } from "./RickAndMortyCharacter";
 
 import { ApolloClient, InMemoryCache, ApolloProvider, } from '@apollo/client';
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { Characters, GetAllCharactersQuery } from "../../__generated__/graphql";
 
 const client = new ApolloClient({
   uri: 'https://rickandmortyapi.com/graphql',
@@ -47,6 +48,21 @@ export function ListOfCharacters() {
     return <ApolloProvider client={client}>
         <ListOfCharactersInner/>
     </ApolloProvider>
+}
+
+export function CharacterCard(props: {
+    //eeeewwwww
+    character: NonNullable<NonNullable<NonNullable<Required<GetAllCharactersQuery>['characters']>['results']>[number]>
+}) {
+    const character  = props.character;
+    return <Card padding ="0.75em"  
+    // Chakra's animation is a bit tedious
+    _hover={{ boxShadow: "1px  1px  1px 1px rgba(0, 0, 0, 0.3)" }}
+    transition={"box-shadow 0.3s ease"}
+    >
+            <Text fontSize="m" align={"center"} marginBottom="0.75em">{character.name}</Text>
+            {character.image && <Image src={character.image} alt={character.name ?? "Unknown Character"} width={300} height={300} />}
+    </Card>
 }
 
 export function ListOfCharactersInner() {
@@ -96,12 +112,9 @@ export function ListOfCharactersInner() {
                 if(!v || !v.id){
                     return null; 
                 }
-
                 return <Link key={v.id} href={pathname + '?' + createQueryString('selectedCharacter', v.id)} aria-label={`${v.name}`}
-                ><Box >
-                        <Text fontSize="m">{v.name}</Text>
-                        {v.image && <Image src={v.image} alt={v.name ?? "Unknown Character"} width={300} height={300} />}
-                    </Box>
+                >   
+                  <CharacterCard character={v} key={v.id}/>
                 </Link>
             })}
         </Flex>
