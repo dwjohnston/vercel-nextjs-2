@@ -1,13 +1,26 @@
 ## Instructions 
 
-Dev: 
-
+**Dev:**
 ```
 npm i 
 npm run dev 
 ```
 
-Production deployment: 
+For the tests, in another terminal: 
+
+```
+npm test
+```
+
+or 
+
+```
+npm run test:open
+```
+
+If you want to see them run.
+
+**Production deployment:**
 
 https://vercel-nextjs-2-pied.vercel.app/
 
