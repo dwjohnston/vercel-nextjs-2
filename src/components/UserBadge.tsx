@@ -1,4 +1,5 @@
 "use client"; 
+import React from "react";
 import { Box, Flex, Icon, IconButton } from '@chakra-ui/react';
 import { useCurrentUser } from '../contexts/CurrentUserContext';
 import { FaRegUser } from "react-icons/fa6";
