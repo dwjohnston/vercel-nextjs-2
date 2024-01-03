@@ -32,6 +32,13 @@ query {
 }
 `;
 
+
+type CharacterPreview = {
+    id: string; 
+    name: string; 
+    image: string; 
+}
+
 export function ListOfCharacters() {
 
     const {isEditing} = useCurrentUser();
@@ -74,7 +81,7 @@ export function ListOfCharacters() {
         </Modal>}
 
         <Flex flexFlow={"row wrap"} gap="1em"  padding="2em" justifyContent={"center"}>
-            {data?.characters.results.map((v) => {
+            {data?.characters.results.map((v: CharacterPreview) => {
                 return <Link key={v.id} href={pathname + '?' + createQueryString('selectedCharacter', v.id)}
                 ><Box >
                         <Text fontSize="m">{v.name}</Text>
