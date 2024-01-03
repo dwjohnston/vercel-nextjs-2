@@ -1,9 +1,11 @@
-import { gql, useQuery } from "@apollo/client";
+import React from "react";
+import {  useQuery } from "@apollo/client";
+import {gql} from "../../__generated__/gql";
 import { Box, Heading, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import { Skeleton, SkeletonCircle, SkeletonText, Stack } from '@chakra-ui/react'
 
-const GET_SINGLE_CHARACTER = gql`
+const GET_SINGLE_CHARACTER = gql(`
 query SingleCharacter($id: ID!) {
     character(id: $id) {
   
@@ -23,7 +25,7 @@ query SingleCharacter($id: ID!) {
     }
   
   }
-`;
+`);
 
 
 export function SingleCharacter(props: {
@@ -35,9 +37,6 @@ export function SingleCharacter(props: {
             id: props.characterId
         }
     });
-
-    console.log(data);
-
 
     const character = data?.character;
 

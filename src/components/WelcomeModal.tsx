@@ -1,5 +1,7 @@
 
 "use client"
+import React, { useEffect, useState } from 'react';
+
 import {
     Modal,
     ModalOverlay,
@@ -25,7 +27,6 @@ import {
 } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useCurrentUser } from '../contexts/CurrentUserContext';
-import { useEffect, useState } from 'react';
 
 
 

@@ -1,5 +1,7 @@
 "use client";
-import { gql, useQuery } from "@apollo/client";
+import React from "react";
+import {  useQuery } from "@apollo/client";
+import {gql} from "../../__generated__/gql";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import { useCallback, useState } from "react";
@@ -15,9 +17,9 @@ import {
     ModalCloseButton,
   } from '@chakra-ui/react'
 import { SingleCharacter } from "./RickAndMortyCharacter";
-import { useCurrentUser } from "@/src/contexts/CurrentUserContext";
 
 import { ApolloClient, InMemoryCache, ApolloProvider, } from '@apollo/client';
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 const client = new ApolloClient({
   uri: 'https://rickandmortyapi.com/graphql',
@@ -25,8 +27,8 @@ const client = new ApolloClient({
 });
 
 
-const GET_CHARACTERS = gql`
-query {
+const GET_CHARACTERS = gql(`
+query GetAllCharacters {
   characters(page: 1) {
 
     results {
@@ -38,7 +40,7 @@ query {
   }
 
 }
-`;
+`);
 
 
 type CharacterPreview = {
