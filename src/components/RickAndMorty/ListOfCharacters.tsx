@@ -17,6 +17,14 @@ import {
 import { SingleCharacter } from "./RickAndMortyCharacter";
 import { useCurrentUser } from "@/src/contexts/CurrentUserContext";
 
+import { ApolloClient, InMemoryCache, ApolloProvider, } from '@apollo/client';
+
+const client = new ApolloClient({
+  uri: 'https://rickandmortyapi.com/graphql',
+  cache: new InMemoryCache(),
+});
+
+
 const GET_CHARACTERS = gql`
 query {
   characters(page: 1) {
@@ -40,6 +48,12 @@ type CharacterPreview = {
 }
 
 export function ListOfCharacters() {
+    return <ApolloProvider client={client}>
+        <ListOfCharactersInner/>
+    </ApolloProvider>
+}
+
+export function ListOfCharactersInner() {
 
     const {isEditing} = useCurrentUser();
     const { loading, error, data } = useQuery(GET_CHARACTERS);

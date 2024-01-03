@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Instructions 
 
-## Getting Started
+Dev: 
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+npm i 
+npm run dev 
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Production deployment: 
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+https://vercel-nextjs-2-4iiq6xfcc-david-johnstons-projects.vercel.app/
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## The Brief 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Please document your code appropriately.
+2. Set up a NextJS project with TypeScript.
+3. Use the ChakraUI component library for UI elements.
+4. Have a welcome modal with two separate slides:
+a. On the first modal slide, have the user set a username.
+b. On the second modal slide, have the user set their job title.
+c. Save the user’s username and job title information in the way you best see fit.
+d. You should be able to view this information somewhere once you log in, and be able to
+change it.
+e. The user’s information should also be persisted.
+5. Use Apollo client to query a public GraphQL API.
+6. Display the GraphQL API data as items on an “Information Page” that is mobile and tablet
+compatible.
+7. Users should not be able to view the “Information Page” until the user has set their information.
+8. Have it so when you click a listed item on the “Information Page”, it should open a modal that
+displays the information about that item.
+9. Deploy on Vercel free tier.

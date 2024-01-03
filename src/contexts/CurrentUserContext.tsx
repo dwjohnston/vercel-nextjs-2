@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 
  
 type CurrentUser = {
@@ -24,16 +24,19 @@ export const CurrentUserContext = React.createContext<CurrentUserContextType>({
 export function CurrentUserContextProvider(props: React.PropsWithChildren<{}>) {
 
     const [isEditing, setIsEditing] = useState(false);
-    const [currentUser, stateSetCurrentUser] = useState<CurrentUser | null>(() => {
+    const [currentUser, stateSetCurrentUser] = useState<CurrentUser | null>(null); 
+
+    useEffect(() => {
         const currentValue = window.localStorage.getItem("user"); 
         try {
             const user = JSON.parse(currentValue ?? ""); 
-            return user; 
+            stateSetCurrentUser(user);
+            setIsEditing(false);
         }catch(err){
-            setIsEditing(true); 
-            return null;
+            stateSetCurrentUser(null);
+            setIsEditing(true);             
         }
-    });
+    },[])
 
     const setCurrentUser = useCallback((user: CurrentUser) => {
        window.localStorage.setItem("user", JSON.stringify(user)); 
