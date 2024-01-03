@@ -45,3 +45,13 @@ compatible.
 8. Have it so when you click a listed item on the “Information Page”, it should open a modal that
 displays the information about that item.
 9. Deploy on Vercel free tier.
+
+## Features
+
+- Tests with Cypress
+- Types generated with graphql-codegen
+- User is persisted in localstorage
+
+
+
+
