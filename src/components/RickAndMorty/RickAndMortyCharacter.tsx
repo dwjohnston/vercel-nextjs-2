@@ -45,7 +45,7 @@ export function SingleCharacter(props: {
             <Heading fontSize={"2xl"} margin="1em 0">{character?.name}</Heading>
         </Skeleton>
         <Skeleton isLoaded={!!character}>
-            <Image src={character?.image} alt={character?.name} width={300} height={300} style={{ "margin": "0 auto 1em" }} />
+            {character?.image && <Image src={character?.image} alt={character?.name ?? "Unknown Character"} width={300} height={300} style={{ "margin": "0 auto 1em" }} />}
         </Skeleton>
         <dl>
             <Skeleton isLoaded={!!character}>
@@ -58,11 +58,11 @@ export function SingleCharacter(props: {
             </Skeleton>
             <Skeleton isLoaded={!!character}>
                 <dt>Origin</dt>
-                <dd>{character?.origin.name}</dd>
+                <dd>{character?.origin?.name ?? "Unknown"}</dd>
             </Skeleton>
             <Skeleton isLoaded={!!character}>
                 <dt>Last Known Location</dt>
-                <dd>{character?.location.name}</dd>
+                <dd>{character?.location?.name ?? "Unknown"}</dd>
             </Skeleton>
         </dl>
     </Box>

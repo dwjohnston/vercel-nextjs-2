@@ -43,12 +43,6 @@ query GetAllCharacters {
 `);
 
 
-type CharacterPreview = {
-    id: string; 
-    name: string; 
-    image: string; 
-}
-
 export function ListOfCharacters() {
     return <ApolloProvider client={client}>
         <ListOfCharactersInner/>
@@ -97,11 +91,16 @@ export function ListOfCharactersInner() {
         </Modal>}
 
         <Flex flexFlow={"row wrap"} gap="1em"  padding="2em" justifyContent={"center"}>
-            {data?.characters.results.map((v: CharacterPreview) => {
+            {data?.characters?.results?.map((v) => {
+
+                if(!v || !v.id){
+                    return null; 
+                }
+
                 return <Link key={v.id} href={pathname + '?' + createQueryString('selectedCharacter', v.id)} aria-label={`${v.name}`}
                 ><Box >
                         <Text fontSize="m">{v.name}</Text>
-                        <Image src={v.image} alt={v.name} width={300} height={300} />
+                        {v.image && <Image src={v.image} alt={v.name ?? "Unknown Character"} width={300} height={300} />}
                     </Box>
                 </Link>
             })}
